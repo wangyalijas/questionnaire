@@ -21,9 +21,7 @@ module.exports = {
         .loader('sass-resources-loader')
         .options({
           resources: [
-            './src/assets/styles/theme/_colors.scss',
-            './src/assets/styles/theme/_colors.scss',
-            './src/assets/styles/theme/_colors.scss',
+            './src/assets/styles/theme/index.scss',
           ],
         })
         .end();
