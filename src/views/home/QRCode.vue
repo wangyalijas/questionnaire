@@ -1,14 +1,14 @@
 <template>
   <div class="qrcode">
     <el-dialog
-      title="提示"
+      title="二维码"
       :visible.sync="visible"
-      width="30%">
-      <span>需要注意的是内容是默认不居中的</span>
+      width="20%">
+      <img :src="qrCode" alt="二维码">
       <span slot="footer" class="dialog-footer">
-    <el-button @click="centerDialogVisible = false">取 消</el-button>
-    <el-button type="primary" @click="centerDialogVisible = false">确 定</el-button>
-  </span>
+        <el-button @click="centerDialogVisible = false">取 消</el-button>
+        <el-button type="primary" @click="centerDialogVisible = false">确 定</el-button>
+      </span>
     </el-dialog>
   </div>
 </template>
@@ -18,6 +18,7 @@ export default {
   name: 'QRCode',
   props: {
     isOpen: Boolean,
+    qrCode: String,
   },
   data() {
     return {
@@ -37,6 +38,10 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
-
+<style lang="scss">
+.qrcode {
+  .el-dialog__body {
+    text-align: center;
+  }
+}
 </style>

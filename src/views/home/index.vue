@@ -28,18 +28,19 @@
         label="统计详情"
         show-overflow-tooltip>
         <template slot-scope="scope">
-          <el-button type="primary" @click="handleToggleQRCode(scope.row.author)">统计详情</el-button>
+          <el-button type="primary" @click="handleToggleQRCode(scope.row.qrcode)">统计详情</el-button>
         </template>
       </el-table-column>
       <el-table-column
         label="二维码"
         show-overflow-tooltip>
         <template slot-scope="scope">
-          <el-button type="primary" @click="handleToggleQRCode(scope.row.author)">主要按钮</el-button>
+          <el-button type="primary" @click="handleToggleQRCode(scope.row.qrcode)">主要按钮</el-button>
         </template>
       </el-table-column>
     </el-table>
     <QECode :is-open="isOpenDialog"
+            :qr-code="qrcode"
             @closeItem="handleCloseDialog"></QECode>
   </div>
 </template>
@@ -52,58 +53,26 @@ export default {
   name: 'home',
   data() {
     return {
-      tableData: [{
-        startTime: '2016-05-02',
-        endTime: '2016-05-02',
-        author: '王小虎',
-        address: '上海市普陀区金沙江路 1518 弄',
-      }, {
-        startTime: '2016-05-02',
-        endTime: '2016-05-02',
-        author: '王小虎',
-        address: '上海市普陀区金沙江路 1518 弄',
-      }, {
-        startTime: '2016-05-02',
-        endTime: '2016-05-02',
-        author: '王小虎',
-        address: '上海市普陀区金沙江路 1518 弄',
-      }, {
-        startTime: '2016-05-02',
-        endTime: '2016-05-02',
-        author: '王小虎',
-        address: '上海市普陀区金沙江路 1518 弄',
-      }, {
-        startTime: '2016-05-02',
-        endTime: '2016-05-02',
-        author: '王小虎',
-        address: '上海市普陀区金沙江路 1518 弄',
-      }, {
-        startTime: '2016-05-02',
-        endTime: '2016-05-02',
-        author: '王小虎',
-        address: '上海市普陀区金沙江路 1518 弄',
-      }, {
-        startTime: '2016-05-02',
-        endTime: '2016-05-02',
-        author: '王小虎',
-        address: '上海市普陀区金沙江路 1518 弄',
-      }],
+      tableData: [],
       isOpenDialog: false,
+      qrcode: '',
     };
   },
   methods: {
-    handleToggleQRCode() {
+    handleToggleQRCode(data) {
       this.isOpenDialog = true;
+      this.qrcode = data;
     },
     handleCloseDialog() {
       this.isOpenDialog = false;
     },
     fetchQuestionnaireList() {
-      // this.isLoading = true;
+      this.isLoading = true;
       this.$http(this.$api.getQuestionnaireList)
         .then(
-          (res) => {
-            console.log(res);
+          ({ data }) => {
+            this.tableData = data;
+            this.isLoading = false;
           },
           (error) => {
             console.error(error);
@@ -126,6 +95,5 @@ export default {
     width: 1366px;
     margin: 50px auto;
     min-height: 300px;
-    background: $--background-color-base;
   }
 </style>
