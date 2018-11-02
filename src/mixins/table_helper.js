@@ -78,7 +78,7 @@ export default {
           reject(new Error(messages.requiredSelected));
           return;
         }
-        if (selectedCount && this.multipleSelection.length !== parseInt(selectedCount)) {
+        if (selectedCount && this.multipleSelection.length !== parseInt(selectedCount, 10)) {
           reject(new Error(messages.maxSelectedCount));
           return;
         }
