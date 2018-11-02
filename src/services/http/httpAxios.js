@@ -55,7 +55,7 @@ const httpServer = (options, data, headers) => {
   const httpDefaultoptions = {
     method: options.method,
     // 请求协议
-    baseUrl: 'http://hufe.club:8000/api',
+    baseURL: 'http://hufe.club:8000/api',
     // baseURL 基础 url 前缀
     url: options.url,
     // 请求的地址
