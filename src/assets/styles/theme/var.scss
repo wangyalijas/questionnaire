@@ -37,6 +37,8 @@ $--color-text-placeholder: #c0c4cc !default;
 /* Background
 -------------------------- */
 $--background-color-base: #f5f7fa !default;
+$--background-color-regular: #F0F0F0 !default;
+$--background-color-hover: #FAFAFA!default;
 
 /* Border
 -------------------------- */
@@ -61,3 +63,4 @@ $--box-shadow-light: 0 2px 12px 0 rgba(0, 0, 0, 0.1) !default;
 /* Size
 -------------------------- */
 $--size-base: 14px !default;
+$--size-base-small: 12px !default;
