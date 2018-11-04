@@ -5,15 +5,11 @@
         题目控件
       </div>
       <ul>
-        <li class="type" @click="handleSelectButton('radio')">
-          <i class="icon danxuan"></i>
-          <span class="name">单选题</span>
-        </li>
-        <li class="type"  @click="handleSelectButton('check-box')">
+        <li class="type" @click="handleSelectButton('selection')">
           <i class="icon duoxuan"></i>
           <span class="name">多选题</span>
         </li>
-        <li class="type"  @click="handleSelectButton('check-box')">
+        <li class="type" @click="handleSelectButton('answer')">
           <i class="icon duoxuan"></i>
           <span class="name">主观题</span>
         </li>
@@ -30,92 +26,105 @@
           </el-form-item>
           <el-form-item label="日期">
             <el-date-picker
-              v-model="form.time"
+              v-model="time"
               type="datetimerange"
               range-separator="至"
               start-placeholder="开始日期"
+              value-format="yyyy-MM-dd"
               end-placeholder="结束日期">
             </el-date-picker>
           </el-form-item>
         </el-form>
       </div>
       <div class="type-content">
-        <template v-for="(item, index) in selectForm">
-            <div  class="type" :key="index">
-              <div v-if="item.type === 'check-box'">
-                问题名称： <el-input v-model="form.name"></el-input>
-              </div>
-              <div v-if="item.type === 'answer'">
-              </div>
-            </div>
-        </template>
+          <template v-for="(item, index) in data">
+            <component
+              :key="index"
+              :is="getModelName(item)"
+              v-model="data[index]"
+              ref="models"
+            ></component>
+          </template>
       </div>
+      <el-button type="primary" class="build" @click="submit">确定</el-button>
     </div>
   </div>
 </template>
 
 <script>
+import generate from './generate';
+import serialize from './serialize';
+import deserialize from './deserialize';
+import Models from './models/index';
+
 export default {
   data() {
     return {
       form: {
         name: '',
         author: '',
-        time: '',
       },
-      selectForm: [
-        {
-          name: '今天这个分享怎么样？',
-          type: 'check-box',
-          options: [
-            {
-              name: '满意',
-            },
-            {
-              name: '不满意',
-            },
-          ],
-        },
-        {
-          name: '今天这个分享怎么样？',
-          type: 'answer',
-          answer: '',
-        },
-      ],
+      time: [],
+      data: [],
     };
   },
   methods: {
-    handleSelectButton(data) {
-      this.selectForm.push({
-        type: data,
-        name: '',
-      });
+    handleSelectButton(type) {
+      const item = generate(type);
+
+      item.sort = this.getCurrentNextSort();
+
+      this.data.push(item);
+    },
+    getCurrentNextSort() {
+      return this.data.length;
+    },
+    getModelName(item) {
+      return `${item.constructor.name}Model`;
+    },
+    serialize(data = this.data) {
+      return serialize(data);
+    },
+    deserialize(data) {
+      console.log(deserialize(data));
+    },
+    formatData() {
+      this.$set(this.form, 'startTime', this.time[0]);
+      this.$set(this.form, 'endTime', this.time[1]);
+    },
+    submit() {
+      if (!this.$refs.models || !this.$refs.models.every(item => item.validate())) {
+        return; // Cancel submit.
+      }
+      const data = this.serialize();
+      this.formatData();
+      // this.deserialize(data);
+      const that = this;
+      console.log(this.$api.buildQuestionnaireList, Object.assign(that.form, data));
+      this.$http(this.$api.buildQuestionnaireList, Object.assign(that.form, data))
+        .then(
+          (data1) => {
+            console.log(data1, 1);
+          },
+          (error) => {
+            console.error(error);
+          },
+        );
     },
   },
+  components: { ...Models },
 };
 </script>
 <style lang="scss">
   .new {
-    .el-form {
-      overflow: hidden;
-    }
-    .el-form-item {
-      float: left;
-    }
   }
 </style>
 <style lang="scss" scoped>
   .new {
-    position: absolute;
-    top: 50px;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    min-height: 300px;
-    background: $--background-color-regular;
+    position: relative;
     .left-side {
-      position: absolute;
-      top: 0;
+      position: fixed;
+      top: 50px;
       bottom: 0;
       left: 0;
       width: 306px;
@@ -156,12 +165,11 @@ export default {
       }
     }
     .right-side {
-      position: fixed;
-      top: 80px;
-      bottom: 30px;
-      left: 321px;
-      right: 50px;
-      padding: 30px 20px;
+      position: relative;
+      margin-top: 50px;
+      margin-left: 370px;
+      padding: 30px 20px 90px;
+      min-height: calc(100% - 100px);
       background: $--background-color-hover;
       border: $--border-base;
       box-shadow: $--box-shadow-base;
@@ -170,7 +178,13 @@ export default {
           border: $--border-base;
           padding: 10px 10px;
         }
+        height: calc(100% - 170px);
       }
+    }
+    .build {
+      position: absolute;
+      bottom: 30px;
+      right: 30px;
     }
   }
 </style>

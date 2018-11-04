@@ -6,3 +6,11 @@
   font-weight: 600;
   font-size: 16px;
 }
+
+el-scrollbar__wrap{
+  overflow-x: hidden;
+}
+
+.el-input {
+  max-width: 300px;
+}

@@ -15,4 +15,7 @@ export default {
 };
 </script>
 <style lang="scss">
+  body {
+    background: $--background-color-regular;
+  }
 </style>
