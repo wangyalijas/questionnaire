@@ -24,16 +24,16 @@
           <el-form-item label="培训人">
             <el-input v-model="form.author"></el-input>
           </el-form-item>
-          <el-form-item label="日期">
-            <el-date-picker
-              v-model="time"
-              type="datetimerange"
-              range-separator="至"
-              start-placeholder="开始日期"
-              value-format="yyyy-MM-dd HH:mm:ss"
-              end-placeholder="结束日期">
-            </el-date-picker>
-          </el-form-item>
+          <!--<el-form-item label="日期">-->
+            <!--<el-date-picker-->
+              <!--v-model="time"-->
+              <!--type="datetimerange"-->
+              <!--range-separator="至"-->
+              <!--start-placeholder="开始日期"-->
+              <!--value-format="yyyy-MM-dd HH:mm:ss"-->
+              <!--end-placeholder="结束日期">-->
+            <!--</el-date-picker>-->
+          <!--</el-form-item>-->
         </el-form>
       </div>
       <div class="type-content">
@@ -98,7 +98,7 @@ export default {
         return; // Cancel submit.
       }
       const serializeData = this.serialize();
-      this.formatData();
+      // this.formatData();
       this.$http(this.$api.buildQuestionnaireList, Object.assign(this.form, serializeData))
         .then(
           ({ data }) => {
@@ -171,8 +171,8 @@ export default {
       position: relative;
       margin-top: 50px;
       margin-left: 370px;
-      padding: 30px 20px 90px;
-      min-height: calc(100% - 100px);
+      padding: 30px 20px 70px;
+      min-height: 500px;
       background: $--background-color-hover;
       border: $--border-base;
       box-shadow: $--box-shadow-base;
@@ -187,7 +187,7 @@ export default {
     .build {
       position: absolute;
       bottom: 30px;
-      right: 30px;
+      right: 20px;
     }
   }
 </style>

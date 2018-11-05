@@ -12,20 +12,24 @@
       </el-table-column>
       <el-table-column
         label="创建人"
+        align="center"
         prop="author">
       </el-table-column>
       <el-table-column
         prop="startTime"
         label="开始时间"
+        align="center"
         width="120">
       </el-table-column>
       <el-table-column
         prop="endTime"
         label="结束时间"
+        align="center"
         show-overflow-tooltip>
       </el-table-column>
       <el-table-column
         label="统计详情"
+        align="center"
         show-overflow-tooltip>
         <template slot-scope="scope">
           <el-button type="primary" @click="handleToggleQRCode(scope.row.qrcode)">统计详情</el-button>
@@ -33,9 +37,10 @@
       </el-table-column>
       <el-table-column
         label="二维码"
+        align="center"
         show-overflow-tooltip>
         <template slot-scope="scope">
-          <el-button type="primary" @click="handleToggleQRCode(scope.row.qrcode)">主要按钮</el-button>
+          <el-button type="primary" @click="handleToggleQRCode(scope.row.qrcode)">获取二维码</el-button>
         </template>
       </el-table-column>
     </el-table>
