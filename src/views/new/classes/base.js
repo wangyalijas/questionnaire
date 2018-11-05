@@ -1,4 +1,5 @@
 class Base {
+  type = '';
   name = '';
 
   constructor(name = '') {
@@ -6,7 +7,11 @@ class Base {
   }
 
   serialize() {
-    return Object.assign({}, this);
+    const result = Object.assign({}, this);
+
+    delete result.type;
+
+    return result;
   }
 
   validate() {

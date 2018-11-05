@@ -8,12 +8,14 @@
       ></el-input>
     </div>
     <div class="delete">
-      <i class="el-icon-close"></i>
+      <i class="el-icon-close" @click="clickedRemoveButtonHandler"></i>
     </div>
   </div>
 </template>
 
 <script>
+import EventsMixin from './events_mixin';
+
 export default {
   props: {
     value: {
@@ -50,6 +52,7 @@ export default {
   created() {
     this.initialInsideValue();
   },
+  mixins: [EventsMixin],
 };
 </script>
 

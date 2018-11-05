@@ -1,6 +1,8 @@
 import Base from './base';
 
 class Selection extends Base {
+  type = 'Selection';
+
   constructor(name = '', options = [{ name: '', sort: 0 }]) {
     super(name);
     this.options = options;

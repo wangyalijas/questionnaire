@@ -13,9 +13,10 @@
 
 // Plan B:
 module.exports = {
-  baseUrl: process.env.NODE_ENV === 'production'
-    ? '/questionnaire-manager/'
-    : '/',
+  // baseUrl: process.env.NODE_ENV === 'production'
+  //   ? '/questionnaire-manager/'
+  //   : '/',
+
   chainWebpack: (config) => {
     const oneOfsMap = config.module.rule('scss').oneOfs.store;
     oneOfsMap.forEach((item) => {

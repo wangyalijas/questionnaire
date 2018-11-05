@@ -9,25 +9,18 @@ export default new Router({
   routes: [
     {
       path: '/home',
-      name: 'index',
-      component: () => import('./views/index.vue'),
-      children: [
-        {
-          path: '/home',
-          name: 'home',
-          component: () => import('./views/home/index.vue'),
-        },
-        {
-          path: '/detail',
-          name: 'detail',
-          component: () => import('./views/detail/index.vue'),
-        },
-      ],
+      name: 'home',
+      component: () => import('./views/home/index.vue'),
     },
     {
       path: '/new',
       name: 'new',
       component: () => import('./views/new/index.vue'),
+    },
+    {
+      path: '/detail',
+      name: 'detail',
+      component: () => import('./views/detail/index.vue'),
     },
   ],
 });

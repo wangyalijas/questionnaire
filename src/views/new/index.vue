@@ -44,6 +44,7 @@
               :fatherIndex="index+1"
               v-model="data[index]"
               ref="models"
+              @removeButtonClicked="removeButtonClickedHandler(data, index)"
             ></component>
           </template>
       </div>
@@ -81,7 +82,7 @@ export default {
       return this.data.length;
     },
     getModelName(item) {
-      return `${item.constructor.name}Model`;
+      return `${item.type}Model`;
     },
     serialize(data = this.data) {
       return serialize(data);
@@ -113,6 +114,10 @@ export default {
             return false;
           },
         );
+    },
+    removeButtonClickedHandler(data, index) {
+      console.log(index, 1);
+      data.splice(index, 1);
     },
   },
   components: { ...Models },
