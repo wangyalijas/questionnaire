@@ -7,7 +7,7 @@
       <ul>
         <li class="type" @click="handleSelectButton('selection')">
           <i class="icon duoxuan"></i>
-          <span class="name">多选题</span>
+          <span class="name">单选题</span>
         </li>
         <li class="type" @click="handleSelectButton('answer')">
           <i class="icon duoxuan"></i>
@@ -30,7 +30,7 @@
               type="datetimerange"
               range-separator="至"
               start-placeholder="开始日期"
-              value-format="yyyy-MM-dd"
+              value-format="yyyy-MM-dd HH:mm:ss"
               end-placeholder="结束日期">
             </el-date-picker>
           </el-form-item>
@@ -41,6 +41,7 @@
             <component
               :key="index"
               :is="getModelName(item)"
+              :fatherIndex="index+1"
               v-model="data[index]"
               ref="models"
             ></component>
@@ -96,18 +97,20 @@ export default {
       if (!this.$refs.models || !this.$refs.models.every(item => item.validate())) {
         return; // Cancel submit.
       }
-      const data = this.serialize();
+      const serializeData = this.serialize();
       this.formatData();
-      // this.deserialize(data);
-      const that = this;
-      console.log(this.$api.buildQuestionnaireList, Object.assign(that.form, data));
-      this.$http(this.$api.buildQuestionnaireList, Object.assign(that.form, data))
+      this.$http(this.$api.buildQuestionnaireList, Object.assign(this.form, serializeData))
         .then(
-          (data1) => {
-            console.log(data1, 1);
-          },
-          (error) => {
-            console.error(error);
+          ({ data }) => {
+            if (data.state) {
+              this.$message.success('创建成功！');
+              this.$router.push({
+                name: 'home',
+              });
+              return true;
+            }
+            this.$message.success('创建失败！');
+            return false;
           },
         );
     },

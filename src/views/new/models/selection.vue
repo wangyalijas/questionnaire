@@ -1,6 +1,7 @@
 <template>
   <div class="select">
     <div>
+      <span class="title-index">{{fatherIndex}}:单选题</span>
       <el-input
         v-model="insideValue.name"
         placeholder="请输入题目名称"
@@ -33,6 +34,7 @@ export default {
     value: {
       type: Object,
     },
+    fatherIndex: Number,
   },
   data() {
     return {
@@ -109,6 +111,12 @@ export default {
     border-radius: 4px;
     margin-bottom: 10px;
     position: relative;
+    .title-index {
+      display: block;
+      font-size: $--size-base-small;
+      color: $--color-text-regular;
+      margin: 5px 0;
+    }
     .delete {
       position: absolute;
       width: 30px;

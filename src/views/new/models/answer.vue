@@ -1,5 +1,6 @@
 <template>
   <div class="answer">
+    <span class="title-index">{{fatherIndex}}:主观题</span>
     <div>
       <el-input
         v-model="insideValue.name"
@@ -18,6 +19,7 @@ export default {
     value: {
       type: Object,
     },
+    fatherIndex: Number,
   },
   data() {
     return {
@@ -58,6 +60,12 @@ export default {
     border-radius: 4px;
     margin-bottom: 10px;
     position: relative;
+    .title-index {
+      display: block;
+      font-size: $--size-base-small;
+      color: $--color-text-regular;
+      margin: 5px 0;
+    }
     &:hover {
       border-color: $--color-primary;
     }
