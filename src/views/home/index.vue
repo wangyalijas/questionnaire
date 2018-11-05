@@ -31,8 +31,8 @@
         label="统计详情"
         align="center"
         show-overflow-tooltip>
-        <template slot-scope="scope">
-          <el-button type="primary" @click="handleToggleQRCode(scope.row.qrcode)">统计详情</el-button>
+        <template  slot-scope="scope">
+          <el-button type="primary" @click="handleRouter(scope.row.GUID)">统计详情</el-button>
         </template>
       </el-table-column>
       <el-table-column
@@ -47,6 +47,7 @@
     <QECode :is-open="isOpenDialog"
             :qr-code="qrcode"
             @closeItem="handleCloseDialog"></QECode>
+    <router-view/>
   </div>
 </template>
 
@@ -83,6 +84,14 @@ export default {
             console.error(error);
           },
         );
+    },
+    handleRouter(data) {
+      this.$router.push({
+        name: 'detail',
+        query: {
+          GUID: data,
+        },
+      });
     },
   },
   mixins: [TableHelperMixin],
