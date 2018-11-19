@@ -1,5 +1,6 @@
 class Base {
   type = '';
+
   name = '';
 
   constructor(name = '') {

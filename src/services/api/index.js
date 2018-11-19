@@ -1,6 +1,6 @@
 import homeModule from './home';
 import newModule from './new';
-import detailModule from './detail'
+import detailModule from './detail';
 
 export default {
   ...homeModule,
